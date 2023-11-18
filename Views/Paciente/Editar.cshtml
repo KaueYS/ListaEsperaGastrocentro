@@ -1,16 +1,16 @@
 ﻿@model ListaEsperaGastrocentro.Models.Paciente
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Alterar";
 }
 
-<h1>Edit</h1>
+<h1>Alterar</h1>
 
 <h4>Paciente</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-controller="Paciente" asp-action="Editar" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">

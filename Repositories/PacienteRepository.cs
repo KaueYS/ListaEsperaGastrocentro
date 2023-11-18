@@ -1,5 +1,7 @@
 ﻿using ListaEsperaGastrocentro.Context;
 using ListaEsperaGastrocentro.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.IIS.Core;
 
 namespace ListaEsperaGastrocentro.Repositories
@@ -13,35 +15,63 @@ namespace ListaEsperaGastrocentro.Repositories
             _context = context;
         }
 
-        public List<Paciente> GetPaciente()
+        public List<Paciente> BuscarTodos()
         {
             return _context.PACIENTES.ToList();
         }
 
-        public Paciente GetById(int id)
+        public Paciente BuscarPorId(int id)
         {
-            var paciente = _context.PACIENTES.FirstOrDefault(x=>x.Id == id);
-            return paciente;
-            
+            var paciente = _context.PACIENTES.FirstOrDefault(x => x.Id == id);
+            if (paciente != null)
+            {
+                return paciente;
+            }
+            throw new Exception("Id nao cadastrado");
+
         }
 
-        public void Add(Paciente paciente)
+        public Paciente Adicionar(Paciente paciente)
         {
             _context.Add(paciente);
             _context.SaveChanges();
-        }
-        public void Update(Paciente paciente)
-        {
-            _context.Update(paciente);
-            _context.SaveChanges();
+            return paciente;
         }
 
-        public void Delete(int id)
+        
+        public Paciente Editar(Paciente paciente)
         {
-            var paciente = _context.PACIENTES.FirstOrDefault(x => x.Id == id);
-            _context.Remove(paciente);
-            _context.SaveChanges();
-            
+            Paciente pacienteId = new Paciente();
+            pacienteId = _context.PACIENTES.FirstOrDefault(x => x.Id == paciente.Id);
+            if (pacienteId != null)
+            {
+                pacienteId.Nome = paciente.Nome;
+                pacienteId.Email = paciente.Email;
+                pacienteId.Telefone = paciente.Telefone;
+                pacienteId.Observacao = paciente.Observacao;
+                pacienteId.Finalizado = paciente.Finalizado;
+                pacienteId.DataCadastro = paciente.DataCadastro;
+
+                _context.PACIENTES.Update(pacienteId);
+                _context.SaveChanges();
+                return pacienteId;
+            }
+            throw new Exception("nao foi possivel atualizar o cadastrado");
+        }
+
+        public Paciente Excluir(int id)
+        {
+            var pacienteExcluir = _context.PACIENTES.FirstOrDefault(x => x.Id == id);
+            if (pacienteExcluir != null)
+            {
+                _context.Remove(pacienteExcluir); 
+                _context.SaveChanges();
+                return pacienteExcluir;
+            }
+            else
+            {
+                throw new Exception("Nao foi possivel apagar");
+            }
         }
     }
 }
