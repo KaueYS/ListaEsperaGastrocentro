@@ -33,6 +33,7 @@ namespace ListaEsperaGastrocentro.Repositories
 
         public Paciente Adicionar(Paciente paciente)
         {
+            
             _context.Add(paciente);
             _context.SaveChanges();
             return paciente;
@@ -50,7 +51,7 @@ namespace ListaEsperaGastrocentro.Repositories
                 pacienteId.Telefone = paciente.Telefone;
                 pacienteId.Observacao = paciente.Observacao;
                 pacienteId.Finalizado = paciente.Finalizado;
-                pacienteId.DataCadastro = paciente.DataCadastro;
+                pacienteId.DataCadastro = DateTime.Now;
 
                 _context.PACIENTES.Update(pacienteId);
                 _context.SaveChanges();

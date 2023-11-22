@@ -10,5 +10,6 @@ namespace ListaEsperaGastrocentro.Context
         }
 
         public DbSet<Paciente> PACIENTES { get; set; }
+        public DbSet<Usuario> USUARIOS { get; set; }
     }
 }

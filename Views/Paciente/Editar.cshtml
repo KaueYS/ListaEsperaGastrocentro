@@ -4,9 +4,8 @@
     ViewData["Title"] = "Alterar";
 }
 
-<h1>Alterar</h1>
 
-<h4>Paciente</h4>
+<h4>Pagina para alterar os dados do Paciente</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -18,33 +17,39 @@
                 <input asp-for="Nome" class="form-control" />
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
                 <label asp-for="Telefone" class="control-label"></label>
                 <input asp-for="Telefone" class="form-control" />
                 <span asp-validation-for="Telefone" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
                 <label asp-for="Observacao" class="control-label"></label>
                 <input asp-for="Observacao" class="form-control" />
                 <span asp-validation-for="Observacao" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
                 <label asp-for="DataCadastro" class="control-label"></label>
                 <input asp-for="DataCadastro" class="form-control" />
                 <span asp-validation-for="DataCadastro" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="Finalizado" /> @Html.DisplayNameFor(model => model.Finalizado)
                 </label>
             </div>
+            <br />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Salvar" class="btn btn-primary" />
             </div>
         </form>
     </div>
