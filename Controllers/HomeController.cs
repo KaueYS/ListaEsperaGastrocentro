@@ -1,9 +1,11 @@
-﻿using ListaEsperaGastrocentro.Models;
+﻿using ListaEsperaGastrocentro.Filters;
+using ListaEsperaGastrocentro.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace ListaEsperaGastrocentro.Controllers
 {
+    [UsuarioLogado]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

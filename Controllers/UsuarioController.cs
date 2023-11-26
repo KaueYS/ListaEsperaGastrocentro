@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ListaEsperaGastrocentro.Context;
 using ListaEsperaGastrocentro.Models;
+using ListaEsperaGastrocentro.Filters;
 
 namespace ListaEsperaGastrocentro.Controllers
 {
+    [SomenteAdmin]
     public class UsuarioController : Controller
     {
         private readonly AppDbContext _context;

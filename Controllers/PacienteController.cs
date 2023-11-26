@@ -1,9 +1,11 @@
-﻿using ListaEsperaGastrocentro.Models;
+﻿using ListaEsperaGastrocentro.Filters;
+using ListaEsperaGastrocentro.Models;
 using ListaEsperaGastrocentro.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ListaEsperaGastrocentro.Controllers
 {
+    [UsuarioLogado]
     public class PacienteController : Controller
     {
         private readonly IPacienteRepository _pacienteRepository;
