@@ -1,0 +1,33 @@
+﻿@model RedefinirSenhaModel
+
+@{
+    Layout = "_layoutDeslogada";
+}
+
+<p>REDEFINIR SENHA</p>
+
+
+
+<form asp-controller="Login" asp-action="EnviarLinkParaRedefinirSenha" method="post">
+    <div class="mb-3">
+        <label for="login" class="form-label"></label>
+        <input type="text" asp-for="Login" class="form-control" id="login" placeholder="Login">
+        @Html.ValidationMessageFor(x => x.Login)
+    </div>
+
+    <div class="mb-3">
+        <label for="email" class="form-label"></label>
+        <input type="text" asp-for="Email" class="form-control" id="email" placeholder="Email">
+        @Html.ValidationMessageFor(x => x.Login)
+    </div>
+
+    <button type="submit" class="btn btn-primary">Redefinir a senha</button>
+    <br />
+    <div>
+        <a asp-controller="Login" asp-action="Index">Voltar</a>
+    </div>
+</form>
+
+
+
+
