@@ -38,7 +38,7 @@ namespace ListaEsperaGastrocentro.Controllers
                         _sessao.CriarSessaoUsuario(entrar);
                         return RedirectToAction("Index", "Home");
                     }
-                    TempData["MensagemErro"] = $"LOGIN ou SENHA inválido(s), tente novamente!";
+                    TempData["MensagemErro"] = $"Login ou senha inválido(s), tente novamente!";
                 }
                 return View("Index");
             }
