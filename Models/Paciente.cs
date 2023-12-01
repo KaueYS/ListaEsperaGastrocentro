@@ -28,5 +28,10 @@ namespace ListaEsperaGastrocentro.Models
                 
        
         public bool Finalizado { get; set; } = false;
+
+        public Usuario Usuario { get; set; }
+
+        public int? UsuarioId { get; set; }
+
     }
 }

@@ -15,9 +15,10 @@ namespace ListaEsperaGastrocentro.Repositories
             _context = context;
         }
 
-        public List<Paciente> BuscarTodos()
+        public List<Paciente> BuscarTodos(int usuarioId)
         {
-            return _context.PACIENTES.ToList();
+
+            return _context.PACIENTES.Where(x =>x.UsuarioId == usuarioId).ToList();
         }
 
         public Paciente BuscarPorId(int id)

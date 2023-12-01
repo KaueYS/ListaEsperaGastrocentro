@@ -13,6 +13,7 @@ namespace ListaEsperaGastrocentro.Models
         
         public string Senha { get; set; }
         public PerfilEnum Perfil { get; set; }
+        public virtual List<Paciente> Pacientes { get; set;}
 
     }
 }

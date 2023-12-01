@@ -1,4 +1,5 @@
 ﻿using ListaEsperaGastrocentro.Filters;
+using ListaEsperaGastrocentro.Helper;
 using ListaEsperaGastrocentro.Models;
 using ListaEsperaGastrocentro.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -9,16 +10,19 @@ namespace ListaEsperaGastrocentro.Controllers
     public class PacienteController : Controller
     {
         private readonly IPacienteRepository _pacienteRepository;
+        private readonly ISessao _sessao;
 
-        public PacienteController(IPacienteRepository pacienteRepository)
+        public PacienteController(IPacienteRepository pacienteRepository, ISessao sessao)
         {
             _pacienteRepository = pacienteRepository;
+            _sessao = sessao;
         }
 
         public IActionResult Index()
         {
-            var buscar = _pacienteRepository.BuscarTodos();
-            return View(buscar);
+            Usuario usuarioLogado = _sessao.BuscarSessaoUsuario();
+            var paciente = _pacienteRepository.BuscarTodos(usuarioLogado.Id);
+            return View(paciente);
         }
 
         public IActionResult Criar()
@@ -29,13 +33,14 @@ namespace ListaEsperaGastrocentro.Controllers
         [HttpPost]
         public IActionResult Criar(Paciente paciente)
         {
-            if (ModelState.IsValid)
-            {
+            
+                Usuario usuarioLogado = _sessao.BuscarSessaoUsuario();
+                paciente.UsuarioId = usuarioLogado.Id;
                 _pacienteRepository.Adicionar(paciente);
                 return RedirectToAction("Index");
 
-            }
-            return View(paciente);
+          
+            //return View(paciente);
 
         }
 
@@ -48,6 +53,9 @@ namespace ListaEsperaGastrocentro.Controllers
         [HttpPost]
         public IActionResult Editar(Paciente paciente)
         {
+            Usuario usuarioLogado = _sessao.BuscarSessaoUsuario();
+            paciente.UsuarioId = usuarioLogado.Id;
+
             _pacienteRepository.Editar(paciente);
             return RedirectToAction("Index");
         }

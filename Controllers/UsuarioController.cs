@@ -24,9 +24,9 @@ namespace ListaEsperaGastrocentro.Controllers
         // GET: Usuario
         public async Task<IActionResult> Index()
         {
-              return _context.USUARIOS != null ? 
-                          View(await _context.USUARIOS.ToListAsync()) :
-                          Problem("Entity set 'AppDbContext.USUARIOS'  is null.");
+            List<Usuario> usuarios = await _context.USUARIOS.ToListAsync();
+
+            return View(usuarios);
         }
 
         // GET: Usuario/Details/5
@@ -64,6 +64,7 @@ namespace ListaEsperaGastrocentro.Controllers
             {
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
+                TempData["MensagemSucesso"] = "Usuário cadastrado com sucesso!";
                 return RedirectToAction(nameof(Index));
             }
             return View(usuario);
@@ -128,8 +129,7 @@ namespace ListaEsperaGastrocentro.Controllers
                 return NotFound();
             }
 
-            var usuario = await _context.USUARIOS
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var usuario = await _context.USUARIOS.FirstOrDefaultAsync(m => m.Id == id);
             if (usuario == null)
             {
                 return NotFound();
@@ -147,7 +147,7 @@ namespace ListaEsperaGastrocentro.Controllers
             {
                 return Problem("Entity set 'AppDbContext.USUARIOS'  is null.");
             }
-            var usuario = await _context.USUARIOS.FindAsync(id);
+            var usuario = await _context.USUARIOS.FirstOrDefaultAsync(x => x.Id == id);
             if (usuario != null)
             {
                 _context.USUARIOS.Remove(usuario);
