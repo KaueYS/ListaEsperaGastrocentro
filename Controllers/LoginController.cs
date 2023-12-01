@@ -2,7 +2,6 @@
 using ListaEsperaGastrocentro.Helper;
 using ListaEsperaGastrocentro.Models;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Protocol.Plugins;
 
 namespace ListaEsperaGastrocentro.Controllers
 {

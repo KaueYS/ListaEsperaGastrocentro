@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ListaEsperaGastrocentro.Context;
 using ListaEsperaGastrocentro.Models;
-using ListaEsperaGastrocentro.Filters;
 
 namespace ListaEsperaGastrocentro.Controllers
 {
-    [SomenteAdmin]
     public class UsuarioController : Controller
     {
         private readonly AppDbContext _context;
@@ -24,9 +17,9 @@ namespace ListaEsperaGastrocentro.Controllers
         // GET: Usuario
         public async Task<IActionResult> Index()
         {
-            List<Usuario> usuarios = await _context.USUARIOS.ToListAsync();
-
-            return View(usuarios);
+            return _context.USUARIOS != null ?
+                        View(await _context.USUARIOS.ToListAsync()) :
+                        Problem("Entity set 'AppDbContext.USUARIOS'  is null.");
         }
 
         // GET: Usuario/Details/5
@@ -60,14 +53,12 @@ namespace ListaEsperaGastrocentro.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nome,Login,Email,Senha,Perfil")] Usuario usuario)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(usuario);
-                await _context.SaveChangesAsync();
-                TempData["MensagemSucesso"] = "Usuário cadastrado com sucesso!";
-                return RedirectToAction(nameof(Index));
-            }
-            return View(usuario);
+
+            _context.Add(usuario);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
+            
         }
 
         // GET: Usuario/Edit/5
@@ -129,7 +120,8 @@ namespace ListaEsperaGastrocentro.Controllers
                 return NotFound();
             }
 
-            var usuario = await _context.USUARIOS.FirstOrDefaultAsync(m => m.Id == id);
+            var usuario = await _context.USUARIOS
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (usuario == null)
             {
                 return NotFound();
@@ -147,19 +139,19 @@ namespace ListaEsperaGastrocentro.Controllers
             {
                 return Problem("Entity set 'AppDbContext.USUARIOS'  is null.");
             }
-            var usuario = await _context.USUARIOS.FirstOrDefaultAsync(x => x.Id == id);
+            var usuario = await _context.USUARIOS.FindAsync(id);
             if (usuario != null)
             {
                 _context.USUARIOS.Remove(usuario);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool UsuarioExists(int id)
         {
-          return (_context.USUARIOS?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.USUARIOS?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
