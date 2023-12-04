@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ListaEsperaGastrocentro.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231201210405_versao1")]
-    partial class versao1
+    [Migration("20231204191254_ver1")]
+    partial class ver1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

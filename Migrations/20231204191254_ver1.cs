@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ListaEsperaGastrocentro.Migrations
 {
     /// <inheritdoc />
-    public partial class versao1 : Migration
+    public partial class ver1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -49,9 +49,8 @@ namespace ListaEsperaGastrocentro.Migrations
                         name: "FK_PACIENTES_USUARIOS_UsuarioId",
                         column: x => x.UsuarioId,
                         principalTable: "USUARIOS",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-        });
+                        principalColumn: "Id");
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_PACIENTES_UsuarioId",
