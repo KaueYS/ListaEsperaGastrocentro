@@ -2,24 +2,30 @@
 using Microsoft.EntityFrameworkCore;
 using ListaEsperaGastrocentro.Context;
 using ListaEsperaGastrocentro.Models;
+using ListaEsperaGastrocentro.Interfaces;
 
 namespace ListaEsperaGastrocentro.Controllers
 {
     public class UsuarioController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IUsuarioServico _usuarioServico;
 
-        public UsuarioController(AppDbContext context)
+        public UsuarioController(AppDbContext context, IUsuarioServico usuarioServico)
         {
             _context = context;
+            _usuarioServico = usuarioServico;
         }
 
         // GET: Usuario
         public async Task<IActionResult> Index()
         {
-            return _context.USUARIOS != null ?
-                        View(await _context.USUARIOS.ToListAsync()) :
-                        Problem("Entity set 'AppDbContext.USUARIOS'  is null.");
+            var usuarios = await _usuarioServico.BuscarUsuarios();
+            return View(usuarios);
+
+            //return _context.USUARIOS != null ?
+            //            View(await _context.USUARIOS.ToListAsync()) :
+            //            Problem("Entity set 'AppDbContext.USUARIOS'  is null.");
         }
 
         // GET: Usuario/Details/5

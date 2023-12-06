@@ -1,6 +1,8 @@
 using ListaEsperaGastrocentro.Context;
 using ListaEsperaGastrocentro.Helper;
+using ListaEsperaGastrocentro.Interfaces;
 using ListaEsperaGastrocentro.Repositories;
+using ListaEsperaGastrocentro.Servicos;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,9 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<IPacienteRepository, PacienteRepository>();
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<ISessao, Sessao>();
-
+builder.Services.AddScoped<IUsuarioServico, UsuarioServico>();  
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddSession(o =>
 {
     o.Cookie.HttpOnly = true;
