@@ -21,7 +21,7 @@ namespace ListaEsperaGastrocentro.Models
 
 
         [Required(ErrorMessage = "Data do cadastro obrigatorio")]
-        public DateTime DataCadastro { get; set; }
+        public DateTime DataCadastro { get; set; } 
         
 
         public string? Observacao { get; set; }

@@ -27,19 +27,21 @@ namespace ListaEsperaGastrocentro.Controllers
 
         public IActionResult Criar()
         {
+            
             return View();
         }
 
         [HttpPost]
         public IActionResult Criar(Paciente paciente)
         {
-            
-                Usuario usuarioLogado = _sessao.BuscarSessaoUsuario();
-                paciente.UsuarioId = usuarioLogado.Id;
-                _pacienteRepository.Adicionar(paciente);
-                return RedirectToAction("Index");
 
-          
+            Usuario usuarioLogado = _sessao.BuscarSessaoUsuario();
+            paciente.UsuarioId = usuarioLogado.Id;
+            
+            _pacienteRepository.Adicionar(paciente);
+            return RedirectToAction("Index");
+
+
             //return View(paciente);
 
         }

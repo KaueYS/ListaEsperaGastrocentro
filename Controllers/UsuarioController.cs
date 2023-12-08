@@ -22,10 +22,6 @@ namespace ListaEsperaGastrocentro.Controllers
         {
             var usuarios = await _usuarioServico.BuscarUsuarios();
             return View(usuarios);
-
-            //return _context.USUARIOS != null ?
-            //            View(await _context.USUARIOS.ToListAsync()) :
-            //            Problem("Entity set 'AppDbContext.USUARIOS'  is null.");
         }
 
         // GET: Usuario/Details/5
@@ -46,25 +42,19 @@ namespace ListaEsperaGastrocentro.Controllers
             return View(usuario);
         }
 
-        // GET: Usuario/Create
+
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Usuario/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nome,Login,Email,Senha,Perfil")] Usuario usuario)
         {
-
-            _context.Add(usuario);
-            await _context.SaveChangesAsync();
+            await _usuarioServico.CriarUsuario(usuario);
             return RedirectToAction(nameof(Index));
-
-            
         }
 
         // GET: Usuario/Edit/5
@@ -95,26 +85,25 @@ namespace ListaEsperaGastrocentro.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+
+            try
             {
-                try
-                {
-                    _context.Update(usuario);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!UsuarioExists(usuario.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                _context.Update(usuario);
+                await _context.SaveChangesAsync();
             }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UsuarioExists(usuario.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
+
             return View(usuario);
         }
 
