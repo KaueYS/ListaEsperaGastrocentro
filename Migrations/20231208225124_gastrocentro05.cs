@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ListaEsperaGastrocentro.Migrations
 {
     /// <inheritdoc />
-    public partial class KingHost : Migration
+    public partial class gastrocentro05 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
